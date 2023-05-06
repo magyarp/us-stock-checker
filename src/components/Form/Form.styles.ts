@@ -2,6 +2,10 @@ import { createStyles } from "@mantine/core";
 
 export default createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colors.green[5],
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    padding: '2rem',
   },
 }));
