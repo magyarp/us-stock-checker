@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FINNHUB_API_BASE_URL } from "../constants/configs";
-import { Stock } from "../types/Common";
+import { Stock, StockData } from "../types/Common";
 
 export const getSupportedStocks = async (): Promise<Array<Stock>> => {
   const response = await axios.get(
@@ -16,6 +16,15 @@ export const getCompanyPeers = async (
 ): Promise<Array<string>> => {
   const response = await axios.get(
     `${FINNHUB_API_BASE_URL}/stock/peers?symbol=${symbol}&token=${
+      import.meta.env.VITE_FINNHUB_API_KEY
+    }`
+  );
+  return response.data;
+};
+
+export const getStockData = async (symbol: string): Promise<StockData> => {
+  const response = await axios.get(
+    `${FINNHUB_API_BASE_URL}/quote?symbol=${symbol}&token=${
       import.meta.env.VITE_FINNHUB_API_KEY
     }`
   );
