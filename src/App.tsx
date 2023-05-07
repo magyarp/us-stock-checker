@@ -19,7 +19,7 @@ import { useEffect } from "react";
 
 function App() {
   const { classes } = useStyles();
-  const [symbol, setStocks] = useAppStore((state) => [state.symbol, state.setStocks]);
+  const [symbol, stocks, setStocks] = useAppStore((state) => [state.symbol, state.stocks, state.setStocks]);
 
   const {
     data: supportedStocks,
@@ -27,7 +27,7 @@ function App() {
     isError,
     error,
     refetch,
-  } = useSupportedStocks();
+  } = useSupportedStocks(!stocks);
 
   const errorMessage = useErrorMessage(error);
 
