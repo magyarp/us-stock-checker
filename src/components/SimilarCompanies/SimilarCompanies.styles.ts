@@ -9,11 +9,20 @@ export default createStyles((theme, { isLoading }: SimilarCompaniesStyleProps) =
     display: "flex",
     flexDirection: "column",
     alignItems: isLoading ? 'center' : 'normal',
-    paddingTop: '2rem'
+    paddingTop: '2rem',
+
+    ['@media (max-width: 768px)']: {
+      fontSize: theme.fontSizes.sm,
+      paddingTop: '1rem',
+    },
   },
   title: {
     fontSize: theme.fontSizes.xl,
     fontWeight: "bold",
+
+    ['@media (max-width: 768px)']: {
+      fontSize: theme.fontSizes.sm,
+    },
   },
   list: {
     display: "flex",
@@ -26,5 +35,9 @@ export default createStyles((theme, { isLoading }: SimilarCompaniesStyleProps) =
     color: theme.colors.blue[9],
     fontWeight: "bold",
     fontSize: theme.fontSizes.xl,
+
+    ['@media (max-width: 768px)']: {
+      fontSize: theme.fontSizes.sm,
+    },
   },
 }));

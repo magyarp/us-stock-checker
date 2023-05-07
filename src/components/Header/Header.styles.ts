@@ -11,5 +11,10 @@ export default createStyles((theme) => ({
     backgroundColor: theme.colors.blue[7],
     color: theme.white,
     fontSize: "2rem",
+
+    ['@media (max-width: 768px)']: {
+      fontSize: '1rem',
+      padding: '0.5rem'
+    },
   },
 }));

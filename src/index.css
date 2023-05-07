@@ -19,4 +19,16 @@
     "header header"
     "leftPanel rightPanel";
   grid-template-rows: auto 1fr;
+
+}
+
+@media only screen and (max-width: 768px) {
+  #root {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "header"
+    "leftPanel"
+    "rightPanel";
+    grid-template-rows: auto 1fr 1fr;
+  }
 }

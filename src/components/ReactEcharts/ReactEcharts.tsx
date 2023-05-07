@@ -15,7 +15,7 @@ export interface ReactEChartsProps {
 
 export function ReactECharts({
   option,
-  style,
+  style = { height: '100%' },
   settings,
   loading,
   theme,
