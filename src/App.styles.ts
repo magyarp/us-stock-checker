@@ -1,16 +1,17 @@
 import { createStyles } from "@mantine/core";
 
-export default createStyles(() => ({
+export default createStyles((theme) => ({
   leftPanel: {
     gridArea: "leftPanel",
     display: "grid",
     gridTemplateRows: "auto auto 1fr",
     height: "100%",
-    borderRight: "1px solid black",
+    padding: "2rem",
+    borderRight: `2px solid ${theme.colors.gray[5]}`,
   },
   rightPanel: {
     gridArea: "rightPanel",
     height: "100%",
-    backgroundColor: "pink",
+    padding: "2rem",
   },
 }));

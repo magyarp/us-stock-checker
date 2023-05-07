@@ -9,28 +9,26 @@ import { useSupportedStocks } from "./hooks/use-supported-stocks.ts";
 import { Loader, LoadingOverlay, Stack, Text } from "@mantine/core";
 import ErrorOverlay from "./components/ErrorOverlay/ErrorOverlay.tsx";
 import {
-  ERROR_OVERLAY_TITLE,
+  APPLICATION_ERROR_OVERLAY_TITLE,
   LOADING,
   MISSING_OR_INVALID_API_KEY,
-  NETWORK_ERROR_TRY_LATER,
-  UNKNOWN_ERROR_TRY_AGAIN,
 } from "./constants/texts.ts";
-import { useMemo } from "react";
+import useAppStore from "./stores/appStore.ts";
+import { useErrorMessage } from "./hooks/use-error-message.ts";
 
 function App() {
   const { classes } = useStyles();
+  const symbol = useAppStore((state) => state.symbol);
 
-  const { data, isLoading, isError, error, refetch } = useSupportedStocks();
+  const {
+    data: supportedStocks,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useSupportedStocks();
 
-  const errorMessage = useMemo(() => {
-    if (error && !error.response) {
-      return NETWORK_ERROR_TRY_LATER;
-    }
-    if (error && error.response?.status === HttpStatusCode.Unauthorized) {
-      return MISSING_OR_INVALID_API_KEY;
-    }
-    return UNKNOWN_ERROR_TRY_AGAIN;
-  }, [error]);
+  const errorMessage = useErrorMessage(error);
 
   if (isLoading) {
     return (
@@ -51,7 +49,7 @@ function App() {
       errorMessage !== MISSING_OR_INVALID_API_KEY ? refetch : undefined;
     return (
       <ErrorOverlay
-        title={ERROR_OVERLAY_TITLE}
+        title={APPLICATION_ERROR_OVERLAY_TITLE}
         message={errorMessage}
         retryCallback={retryCallback}
       />
@@ -62,13 +60,11 @@ function App() {
     <>
       <Header />
       <div className={classes.leftPanel}>
-        <Form supportedStocks={data} />
-        <StockData />
-        <SimilarCompanies />
+        <Form supportedStocks={supportedStocks} />
+        {symbol && <StockData />}
+        {symbol && <SimilarCompanies />}
       </div>
-      <div className={classes.rightPanel}>
-        <Graph />
-      </div>
+      <div className={classes.rightPanel}>{symbol && <Graph />}</div>
     </>
   );
 }

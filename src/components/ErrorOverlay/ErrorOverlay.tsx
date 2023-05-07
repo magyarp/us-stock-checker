@@ -1,12 +1,12 @@
-import { Button, Overlay, Stack, Text, useMantineTheme } from "@mantine/core";
-import { RETRY } from "../../constants/texts";
+import { Overlay, useMantineTheme } from "@mantine/core";
+import Error from "../Error/Error.tsx";
 import useStyles from "./ErrorOverlay.styles.ts";
 
-type ErrorOverlayProps = {
+export type ErrorOverlayProps = {
   title: string;
   message: string;
   retryCallback?: () => void;
-};
+}
 
 function ErrorOverlay(props: ErrorOverlayProps) {
   const theme = useMantineTheme();
@@ -14,17 +14,12 @@ function ErrorOverlay(props: ErrorOverlayProps) {
   const { title, message, retryCallback } = props;
   return (
     <Overlay color={theme.colors.red[9]} className={classes.root}>
-      <Stack align="center">
-        <Text align="center" color="#fff" size="xl">
-          {title}
-        </Text>
-        <Text align="center" color="#fff" size="sm">
-          {message}
-        </Text>
-        {retryCallback && (
-          <Button onClick={() => retryCallback()}>{RETRY}</Button>
-        )}
-      </Stack>
+      <Error
+        title={title}
+        message={message}
+        textColor="#fff"
+        retryCallback={retryCallback}
+      />
     </Overlay>
   );
 }
