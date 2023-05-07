@@ -9,6 +9,7 @@ import {
   STOCK_SYMBOL_INPUT_LABEL,
   STOCK_SYMBOL_INPUT_PLACEHOLDER,
 } from "../../constants/texts.ts";
+import useAppStore from "../../stores/appStore.ts";
 
 type FormProps = {
   supportedStocks: Array<Stock>;
@@ -17,6 +18,7 @@ type FormProps = {
 function Form(props: FormProps) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const setSymbol = useAppStore((state) => state.setSymbol);
   const { supportedStocks } = props;
 
   const symbolInputRef = useRef<HTMLInputElement>(null);
@@ -40,8 +42,13 @@ function Form(props: FormProps) {
   const handleGetStockData = () => {
     const validationResult = form.validate();
     if (!validationResult.hasErrors) {
-      // TODO: get stock data by symbol
-      console.log("Symbol is valid");
+      setSymbol(form.values.symbol);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleGetStockData();
     }
   };
 
@@ -51,6 +58,7 @@ function Form(props: FormProps) {
         label={STOCK_SYMBOL_INPUT_LABEL}
         placeholder={STOCK_SYMBOL_INPUT_PLACEHOLDER}
         ref={symbolInputRef}
+        onKeyDown={(event) => handleKeyDown(event)}
         required
         {...form.getInputProps("symbol")}
         rightSection={
