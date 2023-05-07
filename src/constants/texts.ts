@@ -1,5 +1,6 @@
 export const APPLICATION_ERROR_OVERLAY_TITLE = "Failed to load the application";
 export const HEADER_TEXT = "US Stock Checker";
+export const HISTORICAL_STOCK_PRICE_GRAPH_ERROR_TITLE = 'Failed to load historical stock price graph'
 export const INVALID_STOCK_SYMBOL = "Invalid Stock Symbol";
 export const LOADING = "Loading...";
 export const MISSING_OR_INVALID_API_KEY =
