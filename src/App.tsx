@@ -1,4 +1,3 @@
-import { HttpStatusCode } from "axios";
 import useStyles from "./App.styles.ts";
 import Form from "./components/Form/Form.tsx";
 import Graph from "./components/Graph/Graph.tsx";

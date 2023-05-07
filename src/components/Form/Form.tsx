@@ -6,6 +6,7 @@ import { IconArrowRight } from "@tabler/icons-react";
 import { useForm } from "@mantine/form";
 import {
   INVALID_STOCK_SYMBOL,
+  STOCK_DATA_QUERY_BUTTON_LABEL,
   STOCK_SYMBOL_INPUT_LABEL,
   STOCK_SYMBOL_INPUT_PLACEHOLDER,
 } from "../../constants/texts.ts";
@@ -64,6 +65,7 @@ function Form(props: FormProps) {
         style={{ width: '100%'}}
         rightSection={
           <ActionIcon
+            aria-label={STOCK_DATA_QUERY_BUTTON_LABEL}
             onClick={handleGetStockData}
             variant="filled"
             color={theme.primaryColor}
