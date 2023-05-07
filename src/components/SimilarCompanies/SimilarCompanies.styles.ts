@@ -8,8 +8,8 @@ export default createStyles((theme, { isLoading }: SimilarCompaniesStyleProps) =
   root: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: isLoading ? 'center' : 'normal'
+    alignItems: isLoading ? 'center' : 'normal',
+    paddingTop: '2rem'
   },
   title: {
     fontSize: theme.fontSizes.xl,

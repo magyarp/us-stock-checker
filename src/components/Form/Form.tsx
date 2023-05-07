@@ -61,6 +61,7 @@ function Form(props: FormProps) {
         onKeyDown={(event) => handleKeyDown(event)}
         required
         {...form.getInputProps("symbol")}
+        style={{ width: '100%'}}
         rightSection={
           <ActionIcon
             onClick={handleGetStockData}
