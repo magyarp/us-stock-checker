@@ -15,10 +15,11 @@ import {
 } from "./constants/texts.ts";
 import useAppStore from "./stores/appStore.ts";
 import { useErrorMessage } from "./hooks/use-error-message.ts";
+import { useEffect } from "react";
 
 function App() {
   const { classes } = useStyles();
-  const symbol = useAppStore((state) => state.symbol);
+  const [symbol, setStocks] = useAppStore((state) => [state.symbol, state.setStocks]);
 
   const {
     data: supportedStocks,
@@ -29,6 +30,12 @@ function App() {
   } = useSupportedStocks();
 
   const errorMessage = useErrorMessage(error);
+
+  useEffect(() => {
+    if(supportedStocks) {
+      setStocks(supportedStocks);
+    }
+  }, [supportedStocks])
 
   if (isLoading) {
     return (
