@@ -11,6 +11,8 @@ import {
   STOCK_SYMBOL_INPUT_PLACEHOLDER,
 } from "../../constants/texts.ts";
 import useAppStore from "../../stores/appStore.ts";
+import { useDebouncedValue } from "@mantine/hooks";
+import { FORM_SYMBOL_DEBOUNCE_WAIT } from "../../constants/configs.ts";
 
 type FormProps = {
   supportedStocks: Array<Stock>;
@@ -19,14 +21,17 @@ type FormProps = {
 function Form(props: FormProps) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
-  const [symbol, setSymbol] = useAppStore((state) => [state.symbol, state.setSymbol]);
+  const [symbol, setSymbol] = useAppStore((state) => [
+    state.symbol,
+    state.setSymbol,
+  ]);
   const { supportedStocks } = props;
 
   const symbolInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     form.setFieldValue("symbol", symbol ?? "");
-  }, [symbol])
+  }, [symbol]);
 
   const form = useForm({
     initialValues: {
@@ -39,6 +44,17 @@ function Form(props: FormProps) {
           : INVALID_STOCK_SYMBOL,
     },
   });
+
+  const [debounced] = useDebouncedValue(
+    form.values.symbol,
+    FORM_SYMBOL_DEBOUNCE_WAIT
+  );
+
+  useEffect(() => {
+    if(debounced !== "") {
+      handleGetStockData();
+    }
+  }, [debounced]);
 
   useEffect(() => {
     symbolInputRef.current?.focus();
@@ -66,7 +82,7 @@ function Form(props: FormProps) {
         onKeyDown={(event) => handleKeyDown(event)}
         required
         {...form.getInputProps("symbol")}
-        style={{ width: '100%'}}
+        style={{ width: "100%" }}
         rightSection={
           <ActionIcon
             aria-label={STOCK_DATA_QUERY_BUTTON_LABEL}
