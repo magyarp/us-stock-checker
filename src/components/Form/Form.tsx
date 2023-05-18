@@ -25,7 +25,7 @@ function Form(props: FormProps) {
   const symbolInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    form.setFieldValue("symbol", symbol!);
+    form.setFieldValue("symbol", symbol ?? "");
   }, [symbol])
 
   const form = useForm({
