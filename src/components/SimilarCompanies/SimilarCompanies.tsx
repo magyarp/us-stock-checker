@@ -11,7 +11,7 @@ import { useErrorMessage } from "../../hooks/use-error-message.ts";
 import Error from "../Error/Error.tsx";
 
 function SimilarCompanies() {
-  const symbol = useAppStore((state) => state.symbol);
+  const [symbol, setSymbol] = useAppStore((state) => [state.symbol, state.setSymbol]);
   const { data, isLoading, isError, error, refetch } = useCompanyPeers(symbol);
   const { classes } = useStyles({ isLoading });
 
@@ -37,12 +37,16 @@ function SimilarCompanies() {
     );
   }
 
+  const handleClickOnPeerCompany = (company: string) => {
+    setSymbol(company);
+  }
+
   return (
     <div className={classes.root}>
       <Text className={classes.title}>{SIMILAR_COMPANIES}</Text>
       <ul className={classes.list}>
         {data?.map((company) => (
-          <li key={`peer_company_${company}`} className={classes.listItem}>
+          <li key={`peer_company_${company}`} className={classes.listItem} onClick={() => handleClickOnPeerCompany(company)}>
             {company}
           </li>
         ))}

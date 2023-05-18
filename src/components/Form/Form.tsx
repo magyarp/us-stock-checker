@@ -19,10 +19,14 @@ type FormProps = {
 function Form(props: FormProps) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
-  const setSymbol = useAppStore((state) => state.setSymbol);
+  const [symbol, setSymbol] = useAppStore((state) => [state.symbol, state.setSymbol]);
   const { supportedStocks } = props;
 
   const symbolInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    form.setFieldValue("symbol", symbol!);
+  }, [symbol])
 
   const form = useForm({
     initialValues: {
